@@ -30,7 +30,7 @@ public class StackGui
 	{
 		JFrame frame;
 		
-		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
+		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento. \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
 		
 		//dichiarazione ed inizializzazione dei componenti
 		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS.");

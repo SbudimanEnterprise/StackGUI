@@ -24,13 +24,13 @@ public class StackGui
 	TextField txtValue = new TextField();
 	TextField txtStack = new TextField();
 	int a = 0;
-	int k = 0; //confronta il numero di elementi dello stack con il numero di stringhe contenente push
+	int k = 0;
 	
 	public StackGui()
 	{
 		JFrame frame;
 		
-		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n IMPORTANTE \n non inserire nessun spazio tra i comandi \n ESEMPIO \n push22,push45,pop,push1,pop");
+		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
 		
 		//dichiarazione ed inizializzazione dei componenti
 		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS.");
@@ -269,6 +269,7 @@ public class StackGui
 		{
 		
 			boolean fix = false; 
+			String supporto;
 			
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -288,13 +289,15 @@ public class StackGui
 							{
 								if(parti[i].contains("push"))
 								{
-									Vstring = parti[i].substring(4);
+									supporto = parti[i].trim();
+									Vstring = supporto.substring(4);
 									System.out.println(Vstring);
 									addValueStack(Vstring);
-									k++;
 								}
-								else if(parti[i].equals("pop"))
+								else if(parti[i].contains("pop"))
 								{
+									supporto = parti[i].trim();
+									
 									if(k == 0)
 									{
 										for(i = 0; i < tf.length; i++)
@@ -305,16 +308,23 @@ public class StackGui
 										
 										txtValue.setText("Non puoi estrarre senza inserimenti");
 									}
-									else
-										addPopStack();
+									else	
+									{
+										if(supporto.equals("pop"))
+											addPopStack();
+										
+									}
+										
 								}
 								else
 								{
 									txtValue.setText("Comando errato. Visiona la guida");
 								}
+								
+								
 							}
 
-							if(k > tf.length && fix == false)
+							if(top > tf.length && fix == false)
 							{
 								for(int i = 0; i < tf.length; i++)
 								{
@@ -352,7 +362,6 @@ public class StackGui
 							}
 							else if(txtValue.getText().equals("pop"))
 							{	
-								
 								if(k == 0)
 								{
 									for(int i = 0; i < tf.length; i++)
@@ -360,11 +369,16 @@ public class StackGui
 										tf[i].setText(null);
 										tf[i].setBackground(Color.RED);
 									}
-									txtValue.setText("Non puoi estrarre senza nessun inserimento");
+									txtValue.setText("Non puoi estrarre");
 								}
 								else
 									addPopStack();
+
 			
+							}
+							else
+							{
+								txtValue.setText("Comando errato. Visiona la guida");
 							}
 							
 						}
@@ -388,7 +402,7 @@ public class StackGui
 			public void actionPerformed(ActionEvent e) 
 			{
 				System.out.println("hai cliccato la guida");
-				JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n IMPORTANTE \n non inserire nessun spazio tra i comandi \n ESEMPIO \n push22,push45,pop,push1,pop");
+				JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
 			}
 		});
 
@@ -421,7 +435,7 @@ public class StackGui
 				 * e al posto di int v[] c è textField tf[]
 				 * stessa cosa ho fatto per sottrai
 				 */
-				
+				k++;
 				
 				if(top == tf.length -1)
 				{
@@ -462,6 +476,8 @@ public class StackGui
 		
 		if(top != -1)
 		{
+			k++;
+			
 			try 
 			{
 				Thread.sleep(500);
@@ -488,7 +504,7 @@ public class StackGui
 				tf[i].setBackground(Color.RED);
 			}
 			
-			txtValue.setText("Non puoi estrarre: limite raggiunto");
+			txtValue.setText("Non puoi estrarre");
 		}
 			
 	}

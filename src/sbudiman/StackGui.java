@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *  By Torrisi Corp.. 
+ *  By Torrisi Corp.. v2
  */
 
 public class StackGui 
@@ -33,7 +33,7 @@ public class StackGui
 		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n IMPORTANTE \n non inserire nessun spazio tra i comandi \n ESEMPIO \n push22,push45,pop,push1,pop");
 		
 		//dichiarazione ed inizializzazione dei componenti
-		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS");
+		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS.");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Onorevole Torrisi\\Desktop\\programmi fatti da me\\logo.png"));
 		frame.setBounds(100, 100, 540, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,17 +134,23 @@ public class StackGui
 		
 		txtValue.addMouseListener(new MouseListener()
 		{
+			int i;
+			
 			public void mousePressed(MouseEvent e) 
 			{
 				txtValue.setText(null);
 				
 				if(controllo)
 				{
-					for(int i = 0; i < tf.length; i++)
+					for(i = 0; i < tf.length; i++)
 					{
-						tf[i].setBackground(Color.white);
+						tf[i].setBackground(Color.WHITE);
 					}
+					
+					if(top >= 0)
+						tf[top].setBackground(Color.CYAN);
 				}
+				
 			}
 
 			public void mouseClicked(MouseEvent e){}
@@ -162,7 +168,7 @@ public class StackGui
 			int a;
 			//controllori
 			boolean flag;
-			boolean flag2 = false;
+			boolean flag2;
 			int w = 70; //width
 			int h = 55; //heigth
 			int alt = 248;
@@ -170,83 +176,89 @@ public class StackGui
 			public void actionPerformed(ActionEvent e) 
 			{
 				System.out.println("hai cliccato crea");
-				
-				if(flag2) // se clicco due volte crea
-					txtStack.setText("l'inserimento è valido solo una volta!");
-				else
+
+				if(flag2)
 				{
-					//provo l input
-					try
+					for(int i = 0; i < tf.length; i++)
 					{
-						a = Integer.parseInt(txtStack.getText());
-						flag = false;
-					} catch (Exception e2) 
-					{
-						txtStack.setText("Inserire solo valori interi");
-						flag = true;
+						tf[i].setVisible(false);
 					}
 					
-					//se va bene entro nell if
-					if(flag == false)
+					w = 70;
+					h = 55;
+					top = -1;
+
+				}
+				
+				//provo l input
+				try
+				{
+					a = Integer.parseInt(txtStack.getText());
+					flag = false;
+				} catch (Exception e2) 
+				{
+					txtStack.setText("Inserire solo valori interi");
+					flag = true;
+				}
+				
+				//se va bene entro nell if
+				if(flag == false)
+				{
+					int b = 55;
+					
+					//verifico che sia entro i 10 elementi
+					if(a > 10)
+						txtStack.setText("Massimo 10 elementi"); //10 per una questione di spazio
+					else
 					{
-						int b = 55;
+						tf = new TextField[a];
+						int y = 10; //setto una costante
 						
-						//verifico che sia entro i 10 elementi
-						if(a > 10)
-							txtStack.setText("Massimo 10 elementi"); //5 per una questione di spazio
-						else
+						if(a > 5 && a <= 8)
 						{
-							tf = new TextField[a];
-							int y = 10; //setto una costante
-							
-							if(a > 5 && a <= 8)
-							{
-								w = 60;
-								h = 35;
-								y = 0;
-								b = 35;
-								alt = 250;
-							}
-							else if(a > 8)
-							{
-								w = 60;
-								h = 35;
-								y = -10;
-								b = 30;
-								alt = 263;
-							}
-							
-							for(int i = 0; i < tf.length; i++)
-							{
-								try
-								{
-									Thread.sleep(200);
-								} catch (InterruptedException e1) 
-								{
-									e1.printStackTrace();
-								}
-								
-								
-								tf[i] = new TextField();
-								/**
-								 * per la posizione ho fatto dei test e parto da 245 
-								 * e ogni nuovo txtfield sottraggo la y che va sempre ad aumentare di 55
-								 * 
-								 */
-								tf[i].setFont(new Font("Ink Free", Font.BOLD, 14));
-								tf[i].setBounds(100, alt-y, w, h);
-								tf[i].setEditable(false);
-								panel.add(tf[i]);
-								
-								y+= b;
-							}
-							
-							controllo = true;
-							flag2 = true;
-							
-							
-							label_1.setVisible(true);
+							w = 60;
+							h = 35;
+							y = 0;
+							b = 35;
+							alt = 250;
 						}
+						else if(a > 8)
+						{
+							w = 60;
+							h = 35;
+							y = -10;
+							b = 30;
+							alt = 263;
+						}
+						
+						for(int i = 0; i < tf.length; i++)
+						{
+							try
+							{
+								Thread.sleep(100);
+							} catch (InterruptedException e1) 
+							{
+								e1.printStackTrace();
+							}
+							
+							
+							tf[i] = new TextField();
+							/**
+							 * per la posizione ho fatto dei test e parto da 245 
+							 * e ogni nuovo txtfield sottraggo la y che va sempre ad aumentare di 55
+							 * 
+							 */
+							tf[i].setFont(new Font("Ink Free", Font.BOLD, 14));
+							tf[i].setBounds(100, alt-y, w, h);
+							tf[i].setEditable(false);
+							panel.add(tf[i]);
+							
+							y+= b;
+						}
+						
+						controllo = true;	
+						flag2 = true;
+						label_1.setVisible(true);
 					}
 				}
 			}
@@ -256,7 +268,7 @@ public class StackGui
 		bAdd.addActionListener(new ActionListener() 
 		{
 		
-			boolean primoPop = false; //controlla se come prima azione ho pop
+			boolean fix = false; 
 			
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -285,8 +297,13 @@ public class StackGui
 								{
 									if(k == 0)
 									{
+										for(i = 0; i < tf.length; i++)
+										{
+											tf[i].setText(null);
+											tf[i].setBackground(Color.RED);
+										}
+										
 										txtValue.setText("Non puoi estrarre senza inserimenti");
-										primoPop = true;
 									}
 									else
 										addPopStack();
@@ -297,20 +314,32 @@ public class StackGui
 								}
 							}
 
-							if(k > tf.length)
-								txtValue.setText("Impossibile pushare. Massimo raggiunto");
-							
-							if(primoPop)
+							if(k > tf.length && fix == false)
 							{
-	
 								for(int i = 0; i < tf.length; i++)
 								{
-									tf[i].setText(null);
 									tf[i].setBackground(Color.RED);
+	
+								}
+
+								try 
+								{
+									Thread.sleep(1000);
+								} catch (InterruptedException e) 
+								{
+									e.printStackTrace();
 								}
 								
+								for(int i = 0; i < tf.length; i++)
+								{
+									tf[i].setBackground(Color.WHITE);
+	
+								}
+								
+								fix = true;
+								txtValue.setText("Stack pieno");
 							}
-		
+							
 						}
 						else
 						{
@@ -323,16 +352,26 @@ public class StackGui
 							}
 							else if(txtValue.getText().equals("pop"))
 							{	
-								for(int i = 0; i < tf.length; i++)
-								{
-									tf[i].setText(null);
-									tf[i].setBackground(Color.RED);
-								}
 								
-								txtValue.setText("Non puoi estrarre senza inserimenti");
+								if(k == 0)
+								{
+									for(int i = 0; i < tf.length; i++)
+									{
+										tf[i].setText(null);
+										tf[i].setBackground(Color.RED);
+									}
+									txtValue.setText("Non puoi estrarre senza nessun inserimento");
+								}
+								else
+									addPopStack();
+			
 							}
 							
 						}
+
+						if(top != -1)
+							tf[top].setBackground(Color.CYAN);
+						
 					}
 					else
 					{

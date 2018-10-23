@@ -89,14 +89,14 @@ public class StackGui
 		txtValue.setBackground(Color.LIGHT_GRAY);
 		txtValue.setFont(new Font("Ink Free", Font.BOLD, 14));
 		txtValue.setText("inserisci i comandi");
-		txtValue.setBounds(20, 150, 235, 27);
+		txtValue.setBounds(10, 150, 245, 27);
 		panel2.add(txtValue);
 		
 		Button bAdd = new Button("Esegui");
 		bAdd.setForeground(Color.MAGENTA);
 		bAdd.setBackground(Color.LIGHT_GRAY);
 		bAdd.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bAdd.setBounds(60, 216, 131, 27);
+		bAdd.setBounds(10, 217, 120, 27);
 		panel2.add(bAdd);
 		
 		Button bGuida = new Button("GUIDA");
@@ -113,6 +113,13 @@ public class StackGui
 		label_1.setVisible(false);
 		panel2.add(label_1);
 		
+		Button bInverti = new Button("Inverti");
+		bInverti.setFont(new Font("Ink Free", Font.BOLD, 14));
+		bInverti.setForeground(Color.MAGENTA);
+		bInverti.setBackground(Color.LIGHT_GRAY);
+		bInverti.setBounds(136, 217, 119, 27);
+		panel2.add(bInverti);
+		
 		txtStack.addMouseListener(new MouseListener() //listener del mouse
 		{
 			
@@ -122,7 +129,10 @@ public class StackGui
 				
 			}
 
-			public void mouseClicked(MouseEvent e){}
+			public void mouseClicked(MouseEvent e)
+			{
+				txtStack.setText(null);
+			}
 
 			public void mouseEntered(MouseEvent e){}
 
@@ -153,7 +163,22 @@ public class StackGui
 				
 			}
 
-			public void mouseClicked(MouseEvent e){}
+			public void mouseClicked(MouseEvent e)
+			{
+				txtValue.setText(null);
+				
+				if(controllo)
+				{
+					for(i = 0; i < tf.length; i++)
+					{
+						tf[i].setBackground(Color.WHITE);
+					}
+					
+					if(top >= 0)
+						tf[top].setBackground(Color.CYAN);
+				}
+				
+			}
 
 			public void mouseEntered(MouseEvent e){}
 
@@ -293,6 +318,7 @@ public class StackGui
 									Vstring = supporto.substring(4);
 									System.out.println(Vstring);
 									addValueStack(Vstring);
+									controllo2 = true;
 								}
 								else if(parti[i].contains("pop"))
 								{
@@ -311,7 +337,11 @@ public class StackGui
 									else	
 									{
 										if(supporto.equals("pop"))
+										{
+											controllo2 = true;
 											addPopStack();
+										}
+											
 										
 									}
 										
@@ -372,9 +402,10 @@ public class StackGui
 									txtValue.setText("Non puoi estrarre");
 								}
 								else
+								{
 									addPopStack();
-
-			
+								}
+									
 							}
 							else
 							{
@@ -386,6 +417,7 @@ public class StackGui
 						if(top != -1)
 							tf[top].setBackground(Color.CYAN);
 						
+						
 					}
 					else
 					{
@@ -396,6 +428,50 @@ public class StackGui
 			}
 				
 		});
+		
+		bInverti.addActionListener(new ActionListener()
+		{
+			
+			public void actionPerformed(ActionEvent arg0)
+			{
+				System.out.println("[DEBUG] hai cliccato inverti");
+				
+				if(controllo == true && controllo2 == true)
+				{
+					int j = 0;
+					int v[] = new int[tf.length];
+					int k;
+					
+					System.out.println("[DEBUG] Eseguo l'inversione...");
+					
+					for(int i = 0; i < tf.length; i++)
+					{
+						if(!tf[i].getText().equals(""))
+						{
+							j++;
+						}
+					}
+
+					k = j-1;
+					
+					for(int i = 0; i < j; i++)
+					{
+						v[i] = Integer.parseInt(tf[k].getText());
+						k--;
+					}
+					
+					for(int i = 0; i < j; i++)
+					{
+						tf[i].setText(String.valueOf(v[i]));
+					}
+				}
+				else
+				{
+					System.out.println("[DEBUG] Non posso eseguire l'inversione");
+				}
+			}
+		});
+		
 		
 		bGuida.addActionListener(new ActionListener() 
 		{
@@ -460,7 +536,9 @@ public class StackGui
 					System.out.println("top: "+top);
 					tf[top].setText(String.valueOf(parti));
 					System.out.println(a);
-					tf[top].setBackground(Color.CYAN);				
+					tf[top].setBackground(Color.CYAN);	
+					
+					controllo2 = true;
 				}
 			}
 		}

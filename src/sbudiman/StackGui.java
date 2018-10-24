@@ -25,8 +25,10 @@ public class StackGui
 	TextField txtStack = new TextField();
 	int a = 0;
 	int k = 0;
+	int coda[];
+	int queue = -1;
 	
-	public StackGui()
+	public StackGui()  
 	{
 		JFrame frame;
 		
@@ -431,39 +433,25 @@ public class StackGui
 		
 		bInverti.addActionListener(new ActionListener()
 		{
-			
 			public void actionPerformed(ActionEvent arg0)
 			{
 				System.out.println("[DEBUG] hai cliccato inverti");
 				
 				if(controllo == true && controllo2 == true)
 				{
-					int j = 0;
-					int v[] = new int[tf.length];
-					int k;
+					coda = new int[k];
 					
-					System.out.println("[DEBUG] Eseguo l'inversione...");
-					
-					for(int i = 0; i < tf.length; i++)
+					do 
 					{
-						if(!tf[i].getText().equals(""))
-						{
-							j++;
-						}
-					}
-
-					k = j-1;
+						addValueCoda();
+					} while (top != -1 );
 					
-					for(int i = 0; i < j; i++)
+					do 
 					{
-						v[i] = Integer.parseInt(tf[k].getText());
-						k--;
-					}
+						addValueStack(String.valueOf(addScodaCoda()));
+					} while (queue != -1);
 					
-					for(int i = 0; i < j; i++)
-					{
-						tf[i].setText(String.valueOf(v[i]));
-					}
+					
 				}
 				else
 				{
@@ -538,13 +526,14 @@ public class StackGui
 					System.out.println(a);
 					tf[top].setBackground(Color.CYAN);	
 					
+					
 					controllo2 = true;
 				}
 			}
 		}
 	}
 	
-	public void addPopStack()
+	public int addPopStack()
 	{
 		int b;
 
@@ -554,7 +543,7 @@ public class StackGui
 		
 		if(top != -1)
 		{
-			k++;
+			k--;
 			
 			try 
 			{
@@ -569,9 +558,10 @@ public class StackGui
 			tf[top].setText(null);
 			tf[top].setBackground(Color.white);
 			top--;
-			
 			if(top >= 0)
 				tf[top].setBackground(Color.CYAN);
+			
+			return b;
 				
 		}
 		else
@@ -583,7 +573,52 @@ public class StackGui
 			}
 			
 			txtValue.setText("Non puoi estrarre");
+			
+			b = 0;
+			return b;
 		}
+		
 			
 	}
+	
+	public void addValueCoda()
+	{
+		int b = addPopStack();
+		
+		if(queue != tf.length - 1)
+		{
+			queue++;
+			System.out.println("[DEBUG] queue: " + queue);
+			coda[queue] = b;
+			System.out.println("[DEBUG] ordine: " + coda[queue]);
+		}
+		else
+		{
+			System.out.println("[DEBUG] la coda è piena");
+		}
+		
+	}
+	
+	public int addScodaCoda()
+	{
+		if(queue != - 1)
+		{
+			int b = coda[0];
+			
+			for(int i = 1; i < k; i++)
+			{
+				coda[i - 1] = coda[i];
+			}
+			
+			queue--;
+			System.out.println("[DEBUG] coda: " + b);
+			return b;
+		}
+		else
+		{
+			System.out.println("[DEBUG] la coda è vuota ");
+			return 0;
+		}
+	}
+	
 }

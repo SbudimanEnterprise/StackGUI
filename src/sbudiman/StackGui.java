@@ -37,7 +37,7 @@ public class StackGui
 		//dichiarazione ed inizializzazione dei componenti
 		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS.");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Onorevole Torrisi\\Desktop\\programmi fatti da me\\logo.png"));
-		frame.setBounds(100, 100, 540, 350);
+		frame.setBounds(100, 100, 650, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
@@ -45,81 +45,77 @@ public class StackGui
 		
 		Panel panel = new Panel(null);
 		panel.setForeground(Color.MAGENTA);
-		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBackground(new Color(138, 43, 226));
 		panel.setBounds(0, 0, 265, 310);
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
 	
 		Panel panel2 = new Panel(null);
+		panel2.setForeground(Color.WHITE);
 		panel2.setFont(new Font("Source Code Pro Black", Font.PLAIN, 13));
-		panel2.setBackground(Color.GRAY);
-		panel2.setBounds(263, 0, 271, 310);
+		panel2.setBackground(Color.WHITE);
+		panel2.setBounds(263, 0, 381, 310);
 		frame.getContentPane().add(panel2);
 		
 		Label lbInfo = new Label("l' azzurro indica il top");
 		lbInfo.setFont(new Font("Ink Free", Font.BOLD, 14));
-		lbInfo.setForeground(Color.CYAN);
-		lbInfo.setBackground(Color.GRAY);
+		lbInfo.setForeground(new Color(138, 43, 226));
+		lbInfo.setBackground(Color.WHITE);
 		lbInfo.setAlignment(Label.CENTER);
 		lbInfo.setSize(245, 27);
-		lbInfo.setLocation(10, 117);
+		lbInfo.setLocation(60, 135);
 		panel2.add(lbInfo);
 		
 		Label label = new Label("max stack 10 ");
+		label.setForeground(new Color(138, 43, 226));
+		label.setBackground(new Color(255, 255, 255));
 		label.setFont(new Font("Ink Free", Font.BOLD, 14));
 		label.setAlignment(Label.CENTER);
-		label.setBounds(60, 10, 131, 27);
+		label.setBounds(124, 10, 131, 27);
 		panel2.add(label);
 		
 		
-		txtStack.setForeground(Color.MAGENTA);
-		txtStack.setBackground(Color.LIGHT_GRAY);
+		txtStack.setForeground(Color.WHITE);
+		txtStack.setBackground(new Color(138, 43, 226));
 		txtStack.setFont(new Font("Ink Free", Font.BOLD, 14));
 		txtStack.setText("inserisci il numero degli elementi");
-		txtStack.setBounds(10, 43, 245, 27);
+		txtStack.setBounds(60, 43, 245, 27);
 		panel2.add(txtStack);
 		
 		Button bCrea = new Button("Crea lo stack");
-		bCrea.setForeground(Color.MAGENTA);
-		bCrea.setBackground(Color.LIGHT_GRAY);
+		bCrea.setForeground(Color.WHITE);
+		bCrea.setBackground(new Color(138, 43, 226));
 		bCrea.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bCrea.setBounds(60, 84, 131, 27);
+		bCrea.setBounds(124, 90, 131, 27);
 		panel2.add(bCrea);
 		
 		txtValue = new TextField();
-		txtValue.setForeground(Color.MAGENTA);
-		txtValue.setBackground(Color.LIGHT_GRAY);
+		txtValue.setForeground(Color.WHITE);
+		txtValue.setBackground(new Color(138, 43, 226));
 		txtValue.setFont(new Font("Ink Free", Font.BOLD, 14));
 		txtValue.setText("inserisci i comandi");
-		txtValue.setBounds(10, 150, 245, 27);
+		txtValue.setBounds(60, 180, 245, 27);
 		panel2.add(txtValue);
 		
 		Button bAdd = new Button("Esegui");
-		bAdd.setForeground(Color.MAGENTA);
-		bAdd.setBackground(Color.LIGHT_GRAY);
+		bAdd.setForeground(Color.WHITE);
+		bAdd.setBackground(new Color(138, 43, 226));
 		bAdd.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bAdd.setBounds(10, 217, 120, 27);
+		bAdd.setBounds(60, 228, 120, 27);
 		panel2.add(bAdd);
 		
 		Button bGuida = new Button("GUIDA");
-		bGuida.setForeground(Color.MAGENTA);
-		bGuida.setBackground(Color.LIGHT_GRAY);
+		bGuida.setForeground(Color.WHITE);
+		bGuida.setBackground(new Color(138, 43, 226));
 		bGuida.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bGuida.setBounds(164, 273, 91, 27);
+		bGuida.setBounds(280, 273, 91, 27);
 		panel2.add(bGuida);
-		
-		Label label_1 = new Label("Stack creato correttamente!!");
-		label_1.setFont(new Font("Ink Free", Font.BOLD, 14));
-		label_1.setAlignment(Label.CENTER);
-		label_1.setBounds(10, 183, 245, 27);
-		label_1.setVisible(false);
-		panel2.add(label_1);
 		
 		Button bInverti = new Button("Inverti");
 		bInverti.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bInverti.setForeground(Color.MAGENTA);
-		bInverti.setBackground(Color.LIGHT_GRAY);
-		bInverti.setBounds(136, 217, 119, 27);
+		bInverti.setForeground(Color.WHITE);
+		bInverti.setBackground(new Color(138, 43, 226));
+		bInverti.setBounds(186, 228, 119, 27);
 		panel2.add(bInverti);
 		
 		txtStack.addMouseListener(new MouseListener() //listener del mouse
@@ -128,12 +124,15 @@ public class StackGui
 			public void mousePressed(MouseEvent e) 
 			{
 				txtStack.setText(null);
-				
+				lbInfo.setVisible(false);
+				label.setVisible(false);
 			}
 
 			public void mouseClicked(MouseEvent e)
 			{
 				txtStack.setText(null);
+				lbInfo.setVisible(false);
+				label.setVisible(false);
 			}
 
 			public void mouseEntered(MouseEvent e){}
@@ -202,7 +201,7 @@ public class StackGui
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("hai cliccato crea");
+				System.out.println("[DEBUG] hai cliccato crea");
 
 				if(flag2)
 				{
@@ -276,6 +275,7 @@ public class StackGui
 							 * 
 							 */
 							tf[i].setFont(new Font("Ink Free", Font.BOLD, 14));
+							tf[i].setForeground(new Color(138, 43, 226));
 							tf[i].setBounds(100, alt-y, w, h);
 							tf[i].setEditable(false);
 							panel.add(tf[i]);
@@ -285,7 +285,7 @@ public class StackGui
 						
 						controllo = true;	
 						flag2 = true;
-						label_1.setVisible(true);
+
 					}
 				}
 			}
@@ -300,7 +300,7 @@ public class StackGui
 			
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				System.out.println("hai cliccato esegui");
+				System.out.println("[DEBUG] hai cliccato esegui");
 				
 				if(!txtStack.getText().equals("inserisci il numero degli elementi"))
 				{
@@ -318,7 +318,7 @@ public class StackGui
 								{
 									supporto = parti[i].trim();
 									Vstring = supporto.substring(4);
-									System.out.println(Vstring);
+									System.out.println("[DEBUG] substring: " + Vstring);
 									addValueStack(Vstring);
 									controllo2 = true;
 								}
@@ -388,7 +388,7 @@ public class StackGui
 							if(txtValue.getText().contains("push"))
 							{
 								Vstring = txtValue.getText().substring(4);
-								System.out.println(Vstring);
+								System.out.println("[DEBUG] substring: " + Vstring);
 								
 								addValueStack(Vstring);
 							}
@@ -441,6 +441,11 @@ public class StackGui
 				{
 					coda = new int[k];
 					
+					/**
+					 * qui è dove avviene lo scambio senza indici, i metodi push pop incoda e scoda sono sotto
+					 * 
+					 */
+					
 					do 
 					{
 						addValueCoda();
@@ -465,7 +470,7 @@ public class StackGui
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("hai cliccato la guida");
+				System.out.println("[DEBUG] hai cliccato la guida");
 				JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
 			}
 		});
@@ -476,11 +481,11 @@ public class StackGui
 	{
 		boolean check;
 		
-		System.out.println("eseguo push");
+		System.out.println("[DEBUG] eseguo push");
 		
 		if(controllo)
 		{
-			System.out.println(parti);
+			System.out.println("[DEBUG] numero parti: " + parti);
 			
 			try //per vedere se la parte di stringa contiene solo int
 			{
@@ -519,11 +524,11 @@ public class StackGui
 					if(top >= 0)
 						tf[top].setBackground(Color.white);
 					
-					System.out.println("top: "+top);
+					System.out.println("[DEBUG] top: "+top);
 					top++;
-					System.out.println("top: "+top);
+					System.out.println("[DEBUG] top: "+top);
 					tf[top].setText(String.valueOf(parti));
-					System.out.println(a);
+					System.out.println("[DEBUG] la parte dell'intera stringa: " + a);
 					tf[top].setBackground(Color.CYAN);	
 					
 					
@@ -537,7 +542,7 @@ public class StackGui
 	{
 		int b;
 
-		System.out.println("eseguo pop");
+		System.out.println("[DEBUG] eseguo pop");
 	
 		
 		
@@ -601,17 +606,22 @@ public class StackGui
 	
 	public int addScodaCoda()
 	{
+		int b;
+		int j = queue;
+		System.out.println("[DEBUG] queue = " + queue);
+		
 		if(queue != - 1)
 		{
-			int b = coda[0];
+			b = coda[0];
 			
-			for(int i = 1; i < k; i++)
+			for(int i = 1; i <= j ; i++)
 			{
 				coda[i - 1] = coda[i];
+				System.out.println("[DEBUG] coda[" + i +"] = " + coda[i]);
 			}
 			
 			queue--;
-			System.out.println("[DEBUG] coda: " + b);
+
 			return b;
 		}
 		else

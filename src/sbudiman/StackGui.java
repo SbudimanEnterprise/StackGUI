@@ -455,7 +455,7 @@ public class StackGui
 				}
 				else
 				{
-					System.out.println("[DEBUG] Non posso eseguire l'inversione");
+					System.out.println("[DEBUG] Non posso eeseguire l'inversione");
 				}
 			}
 		});

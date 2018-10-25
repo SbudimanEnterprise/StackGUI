@@ -2,7 +2,6 @@ package sbudiman;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.*;
@@ -32,12 +31,12 @@ public class StackGui
 	{
 		JFrame frame;
 		
-		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento. \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
+		JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento. \n ESEMPIO \n push22, push45, pop ,push1 ,pop,inverti");
 		
 		//dichiarazione ed inizializzazione dei componenti
 		frame = new JFrame("Torri'Stack By Torrisi Corp., Sbudiman Enterprise & GenOS.");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Onorevole Torrisi\\Desktop\\programmi fatti da me\\logo.png"));
-		frame.setBounds(100, 100, 650, 350);
+		frame.setBounds(100, 100, 650, 340);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
@@ -46,7 +45,7 @@ public class StackGui
 		Panel panel = new Panel(null);
 		panel.setForeground(Color.MAGENTA);
 		panel.setBackground(new Color(138, 43, 226));
-		panel.setBounds(0, 0, 265, 310);
+		panel.setBounds(0, 0, 265, 311);
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
 	
@@ -54,7 +53,7 @@ public class StackGui
 		panel2.setForeground(Color.WHITE);
 		panel2.setFont(new Font("Source Code Pro Black", Font.PLAIN, 13));
 		panel2.setBackground(Color.WHITE);
-		panel2.setBounds(263, 0, 381, 310);
+		panel2.setBounds(263, 0, 381, 311);
 		frame.getContentPane().add(panel2);
 		
 		Label lbInfo = new Label("l' azzurro indica il top");
@@ -101,7 +100,7 @@ public class StackGui
 		bAdd.setForeground(Color.WHITE);
 		bAdd.setBackground(new Color(138, 43, 226));
 		bAdd.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bAdd.setBounds(60, 228, 120, 27);
+		bAdd.setBounds(60, 228, 245, 27);
 		panel2.add(bAdd);
 		
 		Button bGuida = new Button("GUIDA");
@@ -110,13 +109,6 @@ public class StackGui
 		bGuida.setFont(new Font("Ink Free", Font.BOLD, 14));
 		bGuida.setBounds(280, 273, 91, 27);
 		panel2.add(bGuida);
-		
-		Button bInverti = new Button("Inverti");
-		bInverti.setFont(new Font("Ink Free", Font.BOLD, 14));
-		bInverti.setForeground(Color.WHITE);
-		bInverti.setBackground(new Color(138, 43, 226));
-		bInverti.setBounds(186, 228, 119, 27);
-		panel2.add(bInverti);
 		
 		txtStack.addMouseListener(new MouseListener() //listener del mouse
 		{
@@ -305,7 +297,7 @@ public class StackGui
 				if(!txtStack.getText().equals("inserisci il numero degli elementi"))
 				{
 
-					if(txtValue.getText().contains("push") ||txtValue.getText().contains("pop"))
+					if(txtValue.getText().contains("push") || txtValue.getText().contains("pop") ||txtValue.getText().contains("inverti"))
 					{
 						if(txtValue.getText().contains(","))
 						{
@@ -321,6 +313,29 @@ public class StackGui
 									System.out.println("[DEBUG] substring: " + Vstring);
 									addValueStack(Vstring);
 									controllo2 = true;
+								}
+								else if(parti[i].contains("inverti"))
+								{
+									System.out.println("[DEBUG] eseguo l'inversione");
+									supporto = parti[i].trim();
+									Vstring = supporto.substring(7);
+									if(controllo == true && controllo2 == true)
+									{
+										coda = new int[k];
+										do 
+										{
+											addValueCoda();
+										} while (top != -1 );
+										
+										do 
+										{
+											addValueStack(String.valueOf(addScodaCoda()));
+										} while (queue != -1);
+									}
+									else
+									{
+										
+									}
 								}
 								else if(parti[i].contains("pop"))
 								{
@@ -385,7 +400,40 @@ public class StackGui
 						}
 						else
 						{
-							if(txtValue.getText().contains("push"))
+							if(txtValue.getText().equalsIgnoreCase("inverti"))
+							{	
+								if(k == 0)
+								{
+									for(int i = 0; i < tf.length; i++)
+									{
+										tf[i].setText(null);
+										tf[i].setBackground(Color.RED);
+									}
+									txtValue.setText("Non puoi invertire");
+								}
+								else
+								{
+									System.out.println("[DEBUG] hai cliccato inverti");
+									
+									if(controllo == true && controllo2 == true)
+									{
+										coda = new int[k];
+										do 
+										{
+											addValueCoda();
+										} while (top != -1 );
+										
+										do 
+										{
+											addValueStack(String.valueOf(addScodaCoda()));
+										} while (queue != -1);
+										
+										
+									}
+								}
+							}
+								
+							else if(txtValue.getText().contains("push"))
 							{
 								Vstring = txtValue.getText().substring(4);
 								System.out.println("[DEBUG] substring: " + Vstring);
@@ -406,8 +454,7 @@ public class StackGui
 								else
 								{
 									addPopStack();
-								}
-									
+								}									
 							}
 							else
 							{
@@ -431,47 +478,13 @@ public class StackGui
 				
 		});
 		
-		bInverti.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				System.out.println("[DEBUG] hai cliccato inverti");
-				
-				if(controllo == true && controllo2 == true)
-				{
-					coda = new int[k];
-					
-					/**
-					 * qui è dove avviene lo scambio senza indici, i metodi push pop incoda e scoda sono sotto
-					 * 
-					 */
-					
-					do 
-					{
-						addValueCoda();
-					} while (top != -1 );
-					
-					do 
-					{
-						addValueStack(String.valueOf(addScodaCoda()));
-					} while (queue != -1);
-					
-					
-				}
-				else
-				{
-					System.out.println("[DEBUG] Non posso eeseguire l'inversione");
-				}
-			}
-		});
-		
 		
 		bGuida.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
 				System.out.println("[DEBUG] hai cliccato la guida");
-				JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop");
+				JOptionPane.showMessageDialog(null, "COMANDI \n push + numero che esegue il push \n pop che estrae l'elemento \n ESEMPIO \n push22, push45, pop ,push1 ,pop, inverti");
 			}
 		});
 
@@ -579,7 +592,7 @@ public class StackGui
 			
 			txtValue.setText("Non puoi estrarre");
 			
-			b = 0;
+			b = (Integer)null;
 			return b;
 		}
 		
